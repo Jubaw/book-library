@@ -1,6 +1,7 @@
 package LibraryApp;
 
 import javax.swing.plaf.synth.SynthLookAndFeel;
+import javax.xml.crypto.Data;
 import java.awt.print.Book;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -9,12 +10,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Database {
+
+    Scanner scanner = new Scanner(System.in);
     static List<Books> booksList = new ArrayList<>();
+
+    static List<User> userList = new ArrayList<>();
 
     public Database() {
         booksList.add(new Books("Les Miserables", "Victor Hugo", "1872", "Historical Fiction", 1500));
         booksList.add(new Books("War and Peace", "Lev Tolstoy", "1867", "Historical Fiction", 2000));
         booksList.add(new Books("Crime and Punishment", "Fyodor Dostoyevski", "1866", "Philosophical Fiction", 2500));
+        userList.add(new User("Jubaw", "jubaw@gmail.com", "12345"));
+
+
     }
 
 
@@ -32,7 +40,7 @@ public class Database {
 
     public void addBooks() {
         Books newBook = new Books();
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter the book name");
         newBook.setBookName(scanner.nextLine());
         System.out.println("Enter the book author");
@@ -54,10 +62,14 @@ public class Database {
 
 
     public void borrowBooks() {
+
+        checkCreditentials();
+
+
         boolean isFound = false;
 
         List<Books> booksToRemove = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter the name you want to borrow");
         String input = scanner.nextLine();
 
@@ -72,18 +84,17 @@ public class Database {
             booksList.removeAll(booksToRemove);
         } else {
             System.out.println("Could not find the book" + input);
+
+
+            System.out.println("Remaining books are: ");
+            listBooks();
         }
-
-        System.out.println("Remaining books are: ");
-        listBooks();
     }
-
 
     public void searchAuthor() {
         boolean foundFlag = false;
         do {
             System.out.println("Enter the author name");
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
 
@@ -110,10 +121,7 @@ public class Database {
 
         boolean foundFlag = false;
         do {
-
-
             System.out.println("Enter the book name");
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             for (Books books : booksList) {
                 if (books.getBookName().equalsIgnoreCase(input)) {
@@ -132,7 +140,7 @@ public class Database {
     }
 
     private boolean shouldContinue() {
-        Scanner scanner = new Scanner(System.in);
+
         String input = scanner.nextLine();
 
         if (input.equalsIgnoreCase("n")) {
@@ -144,6 +152,38 @@ public class Database {
         return true;
 
 
+    }
+
+    private void checkCreditentials() {
+        String username;
+        String password;
+        String email;
+        boolean accessGranted = false;
+
+        do {
+
+
+            System.out.println("Enter username");
+            username = scanner.nextLine();
+            System.out.println("Enter email");
+            email = scanner.nextLine();
+            System.out.println("Enter password");
+            password = scanner.nextLine();
+
+
+            for (User user : userList) {
+
+                if (user.getUsername().equalsIgnoreCase(username) && user.getEmail().equalsIgnoreCase(email) && user.getPassword().equalsIgnoreCase(password)) {
+
+                    System.out.println("Welcome " + username);
+                    accessGranted = true;
+                } else {
+                    Menu.slowPrint("You are not registered", 50);
+                    System.out.println();
+                }
+
+            }
+        } while (!accessGranted);
     }
 
 

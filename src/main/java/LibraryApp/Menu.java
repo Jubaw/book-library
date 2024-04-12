@@ -65,7 +65,7 @@ public class Menu {
 
     }
 
-    private static void slowPrint(String message, int delay) {
+    public static void slowPrint(String message, int delay) {
         for (char c : message.toCharArray()) {
             System.out.print(c);
             try {
