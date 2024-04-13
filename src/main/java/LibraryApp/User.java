@@ -1,14 +1,6 @@
 package LibraryApp;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.security.PublicKey;
-
-@Getter
-@Setter
-@Builder
 public class User {
 
     private String username;
@@ -16,7 +8,7 @@ public class User {
     private String password;
 
 
-    public User(){
+    public User() {
 
     }
 

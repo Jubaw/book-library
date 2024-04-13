@@ -1,11 +1,6 @@
 package LibraryApp;
 
-import javax.swing.plaf.synth.SynthLookAndFeel;
-import javax.xml.crypto.Data;
-import java.awt.print.Book;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
