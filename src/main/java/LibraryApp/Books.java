@@ -1,20 +1,38 @@
 package LibraryApp;
 
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
+import java.util.Date;
 
+@Entity //Create table
+@Table (name = "b_books") //Customized the name
+public class Books { //Table name
 
-public class Books {
+    @Id //PK
+    @Column (name = "book_id",length = 25,nullable = false,unique = true)
+    private int id;
 
+    @Column(name = "book_name",length = 25,nullable = false)
     private String bookName;
+    @Column(name = "book_author",length = 25)
     private String bookAuthor;
+
+    @Column(name = "book_year",length = 25)
     private String bookYear;
+
+    @Column(name = "book_genre",length = 25)
     private String bookGenre;
+
+    @Column(name = "book_price",length = 25)
     private double bookPrice;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Books(){
 
@@ -26,6 +44,16 @@ public class Books {
         this.bookYear = bookYear;
         this.bookGenre = bookGenre;
         this.bookPrice = bookPrice;
+
+    }
+    public Books(int id,String bookName, String bookAuthor, String bookYear, String bookGenre, double bookPrice) {
+        this.bookName = bookName;
+        this.bookAuthor = bookAuthor;
+        this.bookYear = bookYear;
+        this.bookGenre = bookGenre;
+        this.bookPrice = bookPrice;
+        this.id = id;
+
     }
 
     public String getBookName() {
