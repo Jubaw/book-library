@@ -9,30 +9,50 @@ import org.hibernate.cfg.Configuration;
 import java.sql.Connection;
 
 public class DatabaseHibernate {
-    public static void main(String[] args) {
-        Books books1 = new Books();
-        books1.setId(1);
-        books1.setBookName("Les Miserables");
-        books1.setBookAuthor("Victor Hugo");
-        books1.setBookYear("1871");
-        books1.setBookGenre("Historical Fiction");
+    SessionFactory sf;
 
-        Configuration con = new Configuration().
-                configure("hibernate.cfg.xml").
-                addAnnotatedClass(Books.class);
-
-
-        SessionFactory sf = con.buildSessionFactory();
-        Session session = sf.openSession();
-        Transaction tx = session.beginTransaction();
-
-
-        tx.commit();
-        session.close();
-        sf.close();
-
+    public DatabaseHibernate() {
+        Configuration con = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Books.class);
+        sf = con.buildSessionFactory();
 
     }
 
+    public void addBook(int id, String bookName, String bookAuthor, String bookYear, String bookGenre, int price, Session session) {
+        Books newBook = new Books(id, bookName, bookAuthor, bookYear, bookGenre, price);
+        session.save(newBook);
+    }
 
+
+    public void closeSessionFactory() {
+        if (sf != null) {
+            sf.close();
+        }
+    }
 }
+
+
+
+
+
+//    public void addBook(int id, String bookName, String bookAuthor, String bookYear, String bookGenre, int price) {
+//        Books newBook = new Books(id, bookName, bookAuthor, bookYear, bookGenre, price);
+////        Books newBook = new Books(new Books(id, bookName, bookAuthor, bookYear, bookGenre, price));
+//        Configuration con = new Configuration().
+//                configure("hibernate.cfg.xml").
+//                addAnnotatedClass(Books.class);
+//
+//
+//        SessionFactory sf = con.buildSessionFactory();
+//        Session session = sf.openSession();
+//        Transaction tx = session.beginTransaction();
+//
+//        session.save(newBook);
+//
+//        tx.commit();
+//        session.close();
+//    }
+
+
+

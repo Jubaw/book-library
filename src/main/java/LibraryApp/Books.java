@@ -26,6 +26,9 @@ public class Books { //Table name
     @Column(name = "book_price",length = 25)
     private double bookPrice;
 
+    public Books(Books books) {
+    }
+
     public int getId() {
         return id;
     }
