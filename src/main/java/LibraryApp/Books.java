@@ -8,6 +8,11 @@ import java.util.Date;
 @Table (name = "b_books") //Customized the name
 public class Books { //Table name
 
+
+
+    @Embedded //Authors column embedded
+    private Authors authors;
+
     @Id //PK
     @Column (name = "book_id",length = 25,nullable = false,unique = true)
     private int id;
@@ -25,6 +30,9 @@ public class Books { //Table name
 
     @Column(name = "book_price",length = 25)
     private double bookPrice;
+
+    public Books(Books books) {
+    }
 
     public int getId() {
         return id;
