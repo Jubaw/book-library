@@ -1,4 +1,4 @@
-package LibraryApp;
+package LibraryApp.hibernate.nohibernate;
 
 
 public class User {

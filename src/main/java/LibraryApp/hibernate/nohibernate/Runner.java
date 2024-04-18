@@ -1,9 +1,7 @@
-package LibraryApp;
+package LibraryApp.hibernate.nohibernate;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import javax.xml.crypto.Data;
 
 public class Runner {
     public static void main(String[] args) {

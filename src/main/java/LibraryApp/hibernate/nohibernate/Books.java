@@ -1,8 +1,7 @@
-package LibraryApp;
+package LibraryApp.hibernate.nohibernate;
 
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity //Create table
 @Table (name = "b_books") //Customized the name

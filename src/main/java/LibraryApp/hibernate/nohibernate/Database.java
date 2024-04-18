@@ -1,4 +1,4 @@
-package LibraryApp;
+package LibraryApp.hibernate.nohibernate;
 
 import java.util.ArrayList;
 import java.util.List;

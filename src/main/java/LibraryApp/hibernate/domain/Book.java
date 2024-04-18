@@ -1,25 +1,42 @@
 package LibraryApp.hibernate.domain;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "b_book")
+@Table(name = "book")
 public class Book {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false,length = 30)
     private String name;
 
-    @Column
-    private Integer price;
+    @Column(nullable = false)
+    private Double price;
+
+    @ManyToOne
+    private Author author;
+
+    private String year;
+
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+
+
+    List<Book> bookList = new ArrayList<>();
 
 
     public Long getId() {
@@ -38,14 +55,39 @@ public class Book {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    @Man
-    private List<Author> rooms = new ArrayList<>();
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", author=" + author +
+                ", year='" + year + '\'' +
+                ", bookList=" + bookList +
+                '}';
+    }
 }

@@ -18,8 +18,7 @@ public class HibernateUtils {
 
             Configuration configuration = new Configuration().configure("hibernate.cfg.xml")
                     .addAnnotatedClass(Author.class)
-                    .addAnnotatedClass(Book.class)
-                    .addAnnotatedClass(Genre.class);
+                    .addAnnotatedClass(Book.class);
 
             sessionFactory = configuration.buildSessionFactory();
         } catch (Exception e) {

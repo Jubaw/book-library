@@ -1,5 +1,7 @@
 package LibraryApp.hibernate.controller;
 
+import LibraryApp.hibernate.config.HibernateUtils;
+import LibraryApp.hibernate.repository.BookRepository;
 import LibraryApp.hibernate.service.BookService;
 
 import java.util.Scanner;
@@ -9,56 +11,56 @@ public class LibraryManagementSystem {
     private static Scanner scanner = new Scanner(System.in);
 
 
-    public void displayLibraryManagementMenu(){
+    public static void displayLibraryManagementMenu() {
 
 
-        ublic static void displayHotelManagementSystemMenu() {
-
-            //1 HotelRepo to be used in all application.
-            HotelRepository hotelRepository = new HotelRepository();
-            HotelService hotelService = new HotelService(hotelRepository);
+        //1 HotelRepo to be used in all application.
+        BookRepository bookRepository = new BookRepository();
+        BookService bookService = new BookService(bookRepository);
 
 
-            boolean exit = false;
+        boolean exit = false;
 
-            while (!exit) {
-                System.out.println("======= Library Management ======");
-                System.out.println("1.Library Operations");
-                System.out.println("2.Room Operations");
-                System.out.println("3.Guest Operations");
-                System.out.println("4.Reservation Operations");
-                System.out.println("0. Exit");
-                System.out.println("Enter your choice");
+        while (!exit) {
+            System.out.println("======= Library Management ======");
+            System.out.println("1.Library Operations");
+            System.out.println("2.Room Operations");
+            System.out.println("3.Guest Operations");
+            System.out.println("4.Reservation Operations");
+            System.out.println("0. Exit");
+            System.out.println("Enter your choice");
 
-                int choice = scanner.nextInt();
-                scanner.nextLine();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-                switch (choice) {
-                    case 1:
-                        displayLibraryOperationsMenu(bookService);
-                        break;
-                    case 2:
-                        displayRoomOperationsMenu();
-                        break;
-                    case 3:
-                        displayGuestOperationsMenu();
-                        break;
-                    case 4:
-                        displayReservationOperationsMenu();
-                        break;
-                    case 0:
-                        exit = true;
-                        System.out.println("Good Bye...");
-                        HibernateUtils.shutDown();
-                        break;
-                    default:
-                        System.out.println("Invalid entry, try again");
-                        break;
+            switch (choice) {
+                case 1:
+                    displayLibraryOperationsMenu(bookService);
+                    break;
+                case 2:
 
-                }
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 0:
+                    exit = true;
+                    System.out.println("Good Bye...");
+                    HibernateUtils.shutDown();
+                    break;
+                default:
+                    System.out.println("Invalid entry, try again");
+                    break;
+
             }
         }
+
     }
+
+
 
     private static void displayLibraryOperationsMenu(BookService bookService) {
         //HotelService hotelService = new HotelService(); uygulama içerisinde açmak yerine, param const ile çağırarak
@@ -68,7 +70,7 @@ public class LibraryManagementSystem {
 
         boolean exit = false;
         while (!exit) {
-            System.out.println("==== Hotel Operations ====");
+            System.out.println("==== Book Operations ====");
             System.out.println("1. Add a new book");
             System.out.println("2. Find Book By ID");
             System.out.println("3. Delete Book By ID");
@@ -83,21 +85,22 @@ public class LibraryManagementSystem {
             switch (choice) {
                 case 1:
                     //todo:1A Save Hotel
-                    hotelService.saveHotel();
+                    bookService.addBook();
                     break;
                 case 2:
                     //2-a: Finding hotel
-                    System.out.println("Enter hotel ID");
+                    System.out.println("Enter book ID");
                     Long id = scanner.nextLong();
                     scanner.nextLine();
                     // hotelService.findHotelById(scanner.nextLong()); da yapılabilir.
                     break;
                 case 3:
-                    //3a- Tüm otelleri listeleme
-                    hotelService.getAllHotels();
+                    //todo:CascadeType.REMOVE kullan
+
                     break;
                 case 4:
-
+                    //3a- Tüm otelleri listeleme
+                    bookService.getAllBooks();
                     break;
                 case 5:
 
