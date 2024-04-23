@@ -2,11 +2,9 @@ package LibraryApp.hibernate.domain;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
-@Table(name = "book")
 public class Book {
 
 
@@ -14,37 +12,25 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,length = 30)
+    @Column(nullable = false, length = 30,unique = true)
     private String name;
 
     @Column(nullable = false)
     private Double price;
 
     @ManyToOne
+    @JoinColumn(name = "author_id")
     private Author author;
+
 
     private String year;
 
-
-    public Author getAuthor() {
-        return author;
+    public Book() {
     }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-
-
-    List<Book> bookList = new ArrayList<>();
 
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -63,12 +49,12 @@ public class Book {
         this.price = price;
     }
 
-    public List<Book> getBookList() {
-        return bookList;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setBookList(List<Book> bookList) {
-        this.bookList = bookList;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public String getYear() {
@@ -79,6 +65,7 @@ public class Book {
         this.year = year;
     }
 
+
     @Override
     public String toString() {
         return "Book{" +
@@ -87,7 +74,6 @@ public class Book {
                 ", price=" + price +
                 ", author=" + author +
                 ", year='" + year + '\'' +
-                ", bookList=" + bookList +
                 '}';
     }
 }

@@ -1,46 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE hibernate-configuration PUBLIC
+        <!DOCTYPE hibernate-configuration PUBLIC
 
-        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 
-        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+                "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
 
-    <session-factory>
+<session-factory>
 
-        <!--projenizin hangi veritabanı sürücüsünü (Driver) kullanacağını belirtir.
-        Veritabanı sürücüsü, Java uygulamanızın veritabanı ile iletişim kurmasını sağlar. -->
-        <property name = "hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name = "hibernate.connection.driver_class">org.postgresql.Driver</property>
 
-        <property name="connection.url">jdbc:postgresql://localhost:5432/library_project</property>
+    <property name="connection.url">jdbc:postgresql://localhost:5432/library_project</property>
 
-        <property name="connection.username">library_dev</property>
+    <property name="connection.username">library_dev</property>
 
-        <property name="connection.password">12345</property>
+    <property name="connection.password">12345</property>
 
-        <!-- Belirtilen DB icin SQL sorgularinin Hibernate tarafindan olusturulmasini sagliyor -->
-        <!-- burada Driver : Java ise Dialect JDK versiyonu oluyor -->
-        <property name = "hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
 
-        <!-- ddl.auto create ise uygulama her çalıştırıldığında schema yeniden oluşturulur.
-             update: tablolar silinmez değişiklik var ise güncellenir.
-             create : Mevcut veritabanını tamamen siler ve Hibernate tarafından tanımlanan tabloları oluşturur.
-               Bu seçenek, her seferinde veritabanını yeniden oluşturur, bu nedenle mevcut veriler kaybolur.
-               Genellikle test veya geliştirme aşamasında kullanılır.
-             create-drop: Bu seçenek, uygulama başladığında veritabanını oluşturur ve uygulama sonlandığında
-               veritabanını tamamen siler.
-             validate: tablolari validate yapıyor. eksiklik varsa hata olusturur
+    <property name = "hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
 
-         -->
 
-        <property name="hbm2ddl.auto">create</property>
 
-        <property name="show_sql">true</property>
+    <property name="hbm2ddl.auto">update</property>
 
-        <property name="format_sql">true</property>
+    <property name="show_sql">true</property>
 
-    </session-factory>
+    <property name="format_sql">true</property>
+
+
+</session-factory>
 
 </hibernate-configuration>

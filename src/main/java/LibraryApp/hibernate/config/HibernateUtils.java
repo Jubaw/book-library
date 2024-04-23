@@ -2,7 +2,6 @@ package LibraryApp.hibernate.config;
 
 import LibraryApp.hibernate.domain.Author;
 import LibraryApp.hibernate.domain.Book;
-import LibraryApp.hibernate.domain.Genre;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -23,6 +22,7 @@ public class HibernateUtils {
             sessionFactory = configuration.buildSessionFactory();
         } catch (Exception e) {
             System.err.println("Initialization of SESSION FACTORY has failed !!!");
+            e.printStackTrace();
         }
     }
 
@@ -30,9 +30,10 @@ public class HibernateUtils {
         return sessionFactory;
     }
 
-    //getter SF
     public static void shutDown() {
-        getSessionFactory().close();
+        if (sessionFactory != null && !sessionFactory.isClosed()){
+            sessionFactory.close();
+        }
     }
 
     //Session kapatalım
