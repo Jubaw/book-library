@@ -89,4 +89,36 @@ public class AuthorRepository {
             HibernateUtils.closeSession(session);
         }
     }
+
+    public List<Book> findAuthorBooks(long authorId) {
+        try {
+            session = HibernateUtils.getSessionFactory().openSession();
+            String hql = "SELECT b FROM Book b WHERE b.author.id = :authorId";
+            List<Book> books = session.createQuery(hql, Book.class)
+                    .setParameter("authorId", authorId)
+                    .getResultList();
+            return books;
+        } catch (Exception e) {
+            System.out.println("Error occurred: " + e.getMessage());
+            return null;
+        } finally {
+            HibernateUtils.closeSession(session);
+        }
+    }
+
+    public List<Book> findAuthorBooks(String authorName) {
+        try {
+            session = HibernateUtils.getSessionFactory().openSession();
+            String hql = "SELECT b FROM Book b WHERE b.author.name = :authorName";
+            List<Book> books = session.createQuery(hql, Book.class)
+                    .setParameter("authorName", authorName)
+                    .getResultList();
+            return books;
+        } catch (Exception e) {
+            System.out.println("Error occurred: " + e.getMessage());
+            return null;
+        } finally {
+            HibernateUtils.closeSession(session);
+        }
+    }
 }

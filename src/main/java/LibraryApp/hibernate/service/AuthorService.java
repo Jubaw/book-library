@@ -4,8 +4,10 @@ import LibraryApp.hibernate.domain.Author;
 import LibraryApp.hibernate.domain.Book;
 import LibraryApp.hibernate.exception.AuthorNotFound;
 import LibraryApp.hibernate.repository.AuthorRepository;
-import LibraryApp.hibernate.repository.BookRepository;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class AuthorService {
@@ -49,4 +51,50 @@ public class AuthorService {
         return authorFound;
     }
 
+    public List<Book> findBookByAuthor(Object obj) {
+        List<Book> bookFound = null;
+        if (obj instanceof Long) {
+            bookFound = authorRepository.findAuthorBooks((Long) obj);
+        } else if (obj instanceof String) {
+            bookFound = authorRepository.findAuthorBooks((String) obj);
+        }
+
+
+        if (bookFound != null){
+            bookFound.forEach(System.out::println);
+        }
+
+        return bookFound != null ? bookFound : Collections.emptyList();
+    }
+
+    public void findAuthor(long authorId) {
+
+
+    }
+
+//    public Author findBookByAuthorName(String authName) {
+//        Author authorFound = authorRepository.findByName(authName);
+//        try {
+//            if (authorFound != null) {
+//                System.out.println(authorFound);
+//                System.out.println(authorFound.getBookList());
+//            } else {
+//                throw new AuthorNotFound("Author not found with ID: " + authorFound);
+//            }
+//        } catch (AuthorNotFound e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return authorFound;
+//    }
+//
+//    public void findbookByAuthorId(Long objInput) {
+//        Author authorFound = authorRepository.findById(objInput);
+//        if (authorFound != null) {
+//            for (Book book : authorFound.getBookList()) {
+//                System.out.println(book);
+//            }
+//        } else {
+//            System.out.println("No book found by given author ID");
+//        }
+//    }
 }

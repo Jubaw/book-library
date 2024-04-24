@@ -3,10 +3,10 @@ package LibraryApp.hibernate.service;
 import LibraryApp.hibernate.domain.Author;
 import LibraryApp.hibernate.domain.Book;
 import LibraryApp.hibernate.exception.AuthorNotFound;
+import LibraryApp.hibernate.exception.BookNotFound;
 import LibraryApp.hibernate.repository.AuthorRepository;
 import LibraryApp.hibernate.repository.BookRepository;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,12 +17,11 @@ public class BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
 
-    private final AuthorService authorService;
 
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, AuthorService authorService) { //Added to param const so whenever it is called, its will be set manually.
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) { //Added to param const so whenever it is called, its will be set manually.
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
-        this.authorService = authorService;
+
     }
 
 
@@ -89,27 +88,67 @@ public class BookService {
 
     }
 
-    public Book findBookById(Long bookId) {
+//    public Book findBook(String firstname) {
+//        Book bookFound = bookRepository.findByName(firstname);
+//        try {
+//            if (bookFound != null) {
+//                System.out.println(bookFound);
+//            } else {
+//                throw new AuthorNotFound("Book not found with name: " + firstname);
+//            }
+//        } catch (AuthorNotFound e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        return bookFound;
+//    }
 
-        BookRepository bookRepository = new BookRepository();
-        List<Book> bookList = bookRepository.findAll();
+//    public Book findBook(Long id) {
+//        Book bookFound = bookRepository.findById(id);
+//        try {
+//            if (bookFound != null) {
+//                System.out.println(bookFound);
+//            } else {
+//                throw new AuthorNotFound("Book not found with ID: " + id);
+//            }
+//        } catch (AuthorNotFound e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return bookFound;
+//    }
 
-        for (Book book : bookList) {
-            if (book.getId().equals(bookId)) {
 
-                System.out.println("Room: " + book);
-                return book;
-            }
+
+    public Book findBook(Object object) {
+        Book bookFound = null;
+        if (object instanceof Long) {
+            bookFound = bookRepository.findById((Long) object);
+        } else if (object instanceof String) {
+            bookFound = bookRepository.findByName((String) object);
         }
-        return null;
-
+        try {
+            if (bookFound != null) {
+                System.out.println(bookFound);
+            } else {
+                throw new BookNotFound("Book not found with ID: " + object);
+            }
+        } catch (BookNotFound e) {
+            System.out.println(e.getMessage());
+        }
+        return bookFound;
     }
 
-    public void removeBook(Long removeBookId) {
 
-        Book bookFound = bookRepository.findById(removeBookId);
+    public void removeBook(Object removeBookNameId) {
+        Book bookFound = null;
+        if (removeBookNameId instanceof Long) {
+            bookFound = bookRepository.findById((Long) removeBookNameId);
 
-        if (bookFound != null){
+        } else if (removeBookNameId instanceof String) {
+            bookFound = bookRepository.findByName((String) removeBookNameId);
+        }
+
+        if (bookFound != null) {
             System.out.println("Book: " + bookFound);
             System.out.println("You want to delete ? Y/N");
             String input = scanner.nextLine();
@@ -118,26 +157,35 @@ public class BookService {
                 System.out.println("Deletion successfull");
             } else if (input.equalsIgnoreCase("n")) {
                 System.out.println("Deletion aborted");
-            }else {
+            } else {
                 System.out.println("No valid answer given, aborting...");
             }
-        }else {
+        } else {
             System.out.println("No book found for ID given");
         }
     }
 
-    public Author findBookByAuthorName(String authName) {
-        Author authorFound = authorRepository.findByName(authName);
-        try {
-            if (authorFound != null) {
-                System.out.println(authorFound);
-                System.out.println(authorFound.getBookList());
-            } else {
-                throw new AuthorNotFound("Author not found with ID: " + authorFound);
-            }
-        } catch (AuthorNotFound e) {
-            System.out.println(e.getMessage());
-        }
-        return authorFound;
-    }
+
+//    public void removeBook(String bookName) {
+//
+//        Book bookFound = bookRepository.findByName(bookName);
+//
+//        if (bookFound != null) {
+//            System.out.println("Book: " + bookFound);
+//            System.out.println("You want to delete ? Y/N");
+//            String input = scanner.nextLine();
+//            if (input.equalsIgnoreCase("y")) {
+//                bookRepository.delete(bookFound);
+//                System.out.println("Deletion successfull");
+//            } else if (input.equalsIgnoreCase("n")) {
+//                System.out.println("Deletion aborted");
+//            } else {
+//                System.out.println("No valid answer given, aborting...");
+//            }
+//        } else {
+//            System.out.println("No book found for ID given");
+//        }
+//    }
+
+
 }
