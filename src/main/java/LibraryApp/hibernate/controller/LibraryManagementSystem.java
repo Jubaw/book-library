@@ -29,8 +29,8 @@ public class LibraryManagementSystem {
 
         while (!exit) {
             System.out.println("======= Library Management ======");
-            System.out.println("1.Book Operations");
-            System.out.println("2.Author Operations");
+            System.out.println("1.Visitor Operations");
+            System.out.println("2.Manager Operations");
             System.out.println("TBD");
             System.out.println("TBD");
             System.out.println("0. Exit");
@@ -71,7 +71,7 @@ public class LibraryManagementSystem {
 
         boolean exit = false;
         while (!exit) {
-            System.out.println("==== Author Operations ====");
+            System.out.println("==== Manager Operations ====");
             System.out.println("1. Add Author");
             System.out.println("2. Delete Author");
             System.out.println("3. Find Author");
@@ -84,15 +84,22 @@ public class LibraryManagementSystem {
 
             switch (choice) {
                 case 1:
+                    authorService.save();
+//                    if (scanner.hasNextLong()){
+//                        authorService.findAuthor(scanner.nextLong());
+//                    }else if (scanner.hasNextLine()){
+//                        authorService.findAuthor(scanner.nextLine());
+//                    }
+                    break;
+                case 2:
+                    System.out.println("Enter the firstname or ID of Author you want to delete");
+                    if (scanner.hasNextLong()){
+//                        authorService.delete(scanner.nextLong());
+                    }
+                case 3:
                     System.out.println("Enter the firstname or ID");
 
-                    if (scanner.hasNextLong()){
-                        authorService.findAuthor(scanner.nextLong());
-                    }else if (scanner.hasNextLine()){
-                        authorService.findAuthor(scanner.nextLine());
-                    }
-
-                    break;
+                    authorService.findAuthor(scanner.next());
                 case 0:
                     exit = true;
                     System.out.println("Returning to Main Menu...");
