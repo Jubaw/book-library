@@ -29,8 +29,8 @@ public class LibraryManagementSystem {
 
         while (!exit) {
             System.out.println("======= Library Management ======");
-            System.out.println("1.Visitor Operations");
-            System.out.println("2.Manager Operations");
+            System.out.println("1.Book Operations");
+            System.out.println("2.Author Operations");
             System.out.println("TBD");
             System.out.println("TBD");
             System.out.println("0. Exit");
@@ -41,7 +41,7 @@ public class LibraryManagementSystem {
 
             switch (choice) {
                 case 1:
-                    displayLibraryOperationsMenu(bookService, authorService);
+                    displayBookOperationsMenu(bookService, authorService);
                     break;
                 case 2:
                     displayAuthorOperationsMenu(authorService);
@@ -98,7 +98,6 @@ public class LibraryManagementSystem {
                     }
                 case 3:
                     System.out.println("Enter the firstname or ID");
-
                     authorService.findAuthor(scanner.next());
                 case 0:
                     exit = true;
@@ -113,7 +112,7 @@ public class LibraryManagementSystem {
     }
 
 
-    private static void displayLibraryOperationsMenu(BookService bookService, AuthorService authorService) {
+    private static void displayBookOperationsMenu(BookService bookService, AuthorService authorService) {
         //HotelService hotelService = new HotelService(); uygulama içerisinde açmak yerine, param const ile çağırarak
         //her çağrılışında oluşacak kaynak israfını önleriz.
 
