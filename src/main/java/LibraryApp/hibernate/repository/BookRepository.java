@@ -15,6 +15,21 @@ public class BookRepository {
 
     private Session session;
 
+    public List<Book> find (Book book){
+        try {
+            session = HibernateUtils.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            session.get(Book.class, book)
+            transaction.commit();
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            HibernateUtils.closeSession(session);
+
+        }
+        return null;
+    }
+
 
 
     public void save(Book book) {

@@ -5,9 +5,7 @@ import LibraryApp.hibernate.repository.AuthorRepository;
 import LibraryApp.hibernate.repository.BookRepository;
 import LibraryApp.hibernate.service.AuthorService;
 import LibraryApp.hibernate.service.BookService;
-import com.sun.source.tree.IfTree;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class LibraryManagementSystem {
@@ -15,7 +13,7 @@ public class LibraryManagementSystem {
     private static Scanner scanner = new Scanner(System.in);
 
 
-    public static void displayLibraryManagementMenu() {
+    public static void libraryManagementMenu() {
 
 
         //1 HotelRepo to be used in all application.
@@ -28,23 +26,14 @@ public class LibraryManagementSystem {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("======= Library Management ======");
-            System.out.println("1.Book Operations");
-            System.out.println("2.Author Operations");
-            System.out.println("TBD");
-            System.out.println("TBD");
-            System.out.println("0. Exit");
-            System.out.println("Enter your choice");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
 
-            switch (choice) {
+            switch (displayLibraryManagementMenu()) {
                 case 1:
-                    displayBookOperationsMenu(bookService, authorService);
+                    bookOperationsMenu(bookService, authorService);
                     break;
                 case 2:
-                    displayAuthorOperationsMenu(authorService);
+                    authorOperationsMenu(authorService);
                     break;
                 case 3:
 
@@ -66,23 +55,26 @@ public class LibraryManagementSystem {
 
     }
 
-    private static void displayAuthorOperationsMenu(AuthorService authorService) {
+    private static int displayLibraryManagementMenu() {
+        System.out.println("======= Library Management ======");
+        System.out.println("1.Book Operations");
+        System.out.println("2.Author Operations");
+        System.out.println("TBD");
+        System.out.println("TBD");
+        System.out.println("0. Exit");
+        System.out.println("Enter your choice");
+        int val = scanner.nextInt();
+        scanner.nextLine();
+        return val;
+
+    }
+
+    private static void authorOperationsMenu(AuthorService authorService) {
 
 
         boolean exit = false;
         while (!exit) {
-            System.out.println("==== Manager Operations ====");
-            System.out.println("1. Add Author");
-            System.out.println("2. Delete Author");
-            System.out.println("3. Find Author");
-            System.out.println("3. Update Author");
-            System.out.println("0. Return to Main Menu");
-            System.out.print("Enter your choice: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
+            switch (displayAuthorOperationsMenu()) {
                 case 1:
                     authorService.save();
 //                    if (scanner.hasNextLong()){
@@ -93,7 +85,7 @@ public class LibraryManagementSystem {
                     break;
                 case 2:
                     System.out.println("Enter the firstname or ID of Author you want to delete");
-                    if (scanner.hasNextLong()){
+                    if (scanner.hasNextLong()) {
 //                        authorService.delete(scanner.nextLong());
                     }
                 case 3:
@@ -111,8 +103,23 @@ public class LibraryManagementSystem {
 
     }
 
+    private static int displayAuthorOperationsMenu() {
 
-    private static void displayBookOperationsMenu(BookService bookService, AuthorService authorService) {
+        System.out.println("==== Author Operations ====");
+        System.out.println("1. Add Author");
+        System.out.println("2. Delete Author");
+        System.out.println("3. Find Author");
+        System.out.println("3. Update Author");
+        System.out.println("0. Return to Main Menu");
+        System.out.print("Enter your choice: ");
+        int val = scanner.nextInt();
+        scanner.nextLine();
+        return val;
+
+    }
+
+
+    private static void bookOperationsMenu(BookService bookService, AuthorService authorService) {
         //HotelService hotelService = new HotelService(); uygulama içerisinde açmak yerine, param const ile çağırarak
         //her çağrılışında oluşacak kaynak israfını önleriz.
 
@@ -120,6 +127,8 @@ public class LibraryManagementSystem {
 
         boolean exit = false;
         while (!exit) {
+
+
             System.out.println("==== Book Operations ====");
             System.out.println("1. Add a new book");
             System.out.println("2. Search Book");
